@@ -19,7 +19,27 @@ def function(x, dimension):
 
 def main():
     rng = np.random.default_rng(seed)
-    algorithm = Bat(1, 40, 1000, 0.5, 0.5, 0.0, 2.0, -10.0, 10.0, function)
+    algorithm = Bat(
+        # Dimension
+        1,
+        # Population
+        40,
+        # Generations       
+        1000,
+        # Loudness  
+        0.5,
+        # Pulse rate
+        0.5,
+        # Min. Freq.
+        0.0,
+        # Max. Freq.
+        2.0,
+        # Lower bound
+        -300.0,
+        # Upper bound
+        300.0,
+        function
+        )
     print(algorithm.run_bats())
 
 if __name__ == "__main__":

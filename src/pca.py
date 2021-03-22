@@ -4,7 +4,7 @@ import numpy as np
 class PCA():
     def custom_pca(self, matrix, numOfComponents=2):
         if len(matrix.shape) >= 3:
-        	Exception("Dimensions >=3 not supported in custom_pca.")
+            Exception("Dimensions >=3 not supported in custom_pca.")
         # calculate the mean of each column
         M = np.mean(matrix.T, axis=1)
         # center columns by subtracting column means
@@ -18,8 +18,8 @@ class PCA():
         return P.T
 
     def industry_pca(self, matrix, numOfComponents=2):
-    	if len(matrix,shape) > 3:
-    		Exception("Dimensions > 3 not (yet) supported in industry_pca.")
+        if len(matrix,shape) > 3:
+            Exception("Dimensions > 3 not (yet) supported in industry_pca.")
         if len(matrix.shape) == 3:
             samples, nx, ny = matrix.shape
             matrix = matrix.reshape(samples, nx*ny)
