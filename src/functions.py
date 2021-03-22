@@ -1,5 +1,8 @@
 import numpy as np
 
+def willem(x, d):
+    return x/x/x/x
+
 
 def rosen(x, d):
 
