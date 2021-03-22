@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import numpy as np
 from bat import Bat
+import functions
 
 popsize = 100
 dimension = np.array([100, 500, 1000])
@@ -35,9 +36,10 @@ def main():
         # Max. Freq.
         2.0,
         # Lower bound
-        -300.0,
+        -30.0,
         # Upper bound
-        300.0,
+        30.0,
+        # functions.rosen
         function
         )
     print(algorithm.run_bats())
