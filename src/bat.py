@@ -1,4 +1,5 @@
 import numpy as np
+import pca
 
 class Bat:
     def __init__(self, d, pop, numOfGenerations, a, r, q_min, q_max, lower_bound, upper_bound, function, use_pca=False, seed=0, alpha=1, gamma=1):
@@ -21,6 +22,8 @@ class Bat:
         # Domain bounds
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound
+
+        self.PCA = pca.custom_pca
 
         # Initialise fitness and solutions
         self.f_min = 0
@@ -52,6 +55,7 @@ class Bat:
             for j in range(self.d):
                 self.solutions[i][j] = self.lower_bound + (self.upper_bound - self.lower_bound) * self.rng.uniform(0, 1)
             self.pop_fitness[i] = self.func(self.solutions[i], self.d)
+
         self.find_best_bat()
 
     def update_frequency(self, i):
