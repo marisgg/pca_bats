@@ -1,18 +1,18 @@
 import numpy as np
 
-def willem(x, d):
+def willem(x):
     return x/x/x/x
 
 
-def rosen(x, d):
+def rosen(x):
 
     """The Rosenbrock function"""
 
     return sum(100.0*(x[1:]-x[:-1]**2.0)**2.0 + (1-x[:-1])**2.0)
 
-def stub(x, dimension):
-    value = 0
-    for i in range(dimension):
+def stub(x):
+    value = 0.0
+    for i in range(x.shape[0]):
         value += np.sum((-x[i] * np.sin(np.sqrt(np.abs(x[i])))))
     return value
 

@@ -71,7 +71,8 @@ class Bat:
         """ Update velocity and location based on Eq.3 and Eq.4 in [1] """
         for j in range(self.d):
             self.V[i][j] = self.V[i][j] + (self.solutions[i][j] - self.best[j]) * self.Q[i]
-            X[i][j] = np.clip(self.solutions[i][j] + self.V[i][j], self.lower_bound, self.upper_bound)
+            X[i][j] = np.clip(self.solutions[i][j] + self.V[i][j],
+                self.lower_bound, self.upper_bound)
 
     def move_bats(self, X, t):
         for i in range(self.pop):
@@ -87,8 +88,9 @@ class Bat:
                     alpha = 0.001
                     # Optimisation, average loudness
                     alpha = np.mean(self.A)
-                    X[i][j] = np.clip(self.best[j] + alpha * self.rng.normal(0, 1), self.lower_bound, self.upper_bound)
-                    
+                    X[i][j] = np.clip(self.best[j] + alpha * self.rng.normal(0, 1),
+                        self.lower_bound, self.upper_bound)
+
             f_new = self.func(X[i], self.d)
 
 

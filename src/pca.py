@@ -1,6 +1,15 @@
 import sklearn.decomposition
 import numpy as np
 
+def number_of_components(contribution_rate, eigenvalues):
+    total = np.sum(eigenvalues)
+    increment = 0.0
+    for m, value in enumerate(eigenvalues):
+        increment += value
+        if increment / total > contribution_rate:
+            return m
+
+
 def custom_pca(matrix):
     if len(matrix.shape) >= 3:
         Exception("Dimensions >=3 not supported in custom_pca.")
@@ -11,10 +20,11 @@ def custom_pca(matrix):
     # calculate covariance matrix of centered matrix
     V = np.cov(C.T)
     # eigendecomposition of covariance matrix
-    eivenvalues, eigenvectors = np.linalg.eig(V)
+    eigenvalues, eigenvectors = np.linalg.eig(V)
+    m = number_of_components(0.85, eigenvalues)
     # project data
     P = eigenvectors.T.dot(C.T)
-    return P.T
+    return P.T[:m]
 
 def industry_pca(matrix):
     if len(matrix.shape > 3):
