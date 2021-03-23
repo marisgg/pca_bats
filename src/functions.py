@@ -10,9 +10,11 @@ def rosen(x, d):
 
     return sum(100.0*(x[1:]-x[:-1]**2.0)**2.0 + (1-x[:-1])**2.0)
 
-def f1(x, d):
-    for i in range(d):
-        pass
+def stub(x, dimension):
+    value = 0
+    for i in range(dimension):
+        value += np.sum((-x[i] * np.sin(np.sqrt(np.abs(x[i])))))
+    return value
 
 # Sphere function
 def FSphere(x):

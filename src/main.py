@@ -8,12 +8,6 @@ dimension = np.array([100, 500, 1000])
 run_times = 25
 maxFEs = 5000 * dimension
 
-def function(x, dimension):
-    value = 0
-    for i in range(dimension):
-        value += np.sum((-x[i] * np.sin(np.sqrt(np.abs(x[i])))))
-    return value
-
 def main():
     algorithm = Bat(
         # Dimension
