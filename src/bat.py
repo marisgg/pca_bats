@@ -83,11 +83,14 @@ class Bat:
             X[i][j] = np.clip(self.solutions[i][j] + self.V[i][j],
                 self.lower_bound, self.upper_bound)
 
-    # Arguments
-    #   u: a uniform[0,1) random number
-    #   c: scale parameter for Levy distribution (defaults to 1)
-    #   mu: location parameter (offset) for Levy (defaults to 0)
+
     def my_levy(self, u, c = 1.0, mu = 0.0):
+        """    
+        Arguments:
+        u: a uniform[0,1) random number
+        c: scale parameter for Levy distribution (defaults to 1)
+        mu: location parameter (offset) for Levy (defaults to 0)
+        """
         return mu + c / (2 * norm.ppf(1.0 - u)**2)
 
     def levy_flight(self, X, i, la):
