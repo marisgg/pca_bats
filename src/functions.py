@@ -5,9 +5,7 @@ def willem(x):
 
 
 def rosen(x):
-
     """The Rosenbrock function"""
-
     return sum(100.0*(x[1:]-x[:-1]**2.0)**2.0 + (1-x[:-1])**2.0)
 
 def stub(x):
@@ -16,24 +14,23 @@ def stub(x):
         value += np.sum((-x[i] * np.sin(np.sqrt(np.abs(x[i])))))
     return value
 
-# Sphere function
 def FSphere(x):
+    """ Sphere function """
     return (x ** 2).sum()
 
 
-# Rastrigin's function
 def FRastrigin(x):
+    """ Rastrigin's function """
     return np.sum(x ** 2 - 10.0 * np.cos(2.0 * np.pi * x) + 10)
 
-
-# Griewank's function
 def FGrienwank(x):
+    """ Griewank's function """
     i = np.sqrt(np.arange(x.shape[0]) + 1.0)
     return np.sum(x ** 2) / 4000.0 - np.prod(np.cos(x / i)) + 1.0
 
 
-# Weierstrass's function
 def FWeierstrass(x):
+    """ Weierstrass's function """
     alpha = 0.5
     beta = 3.0
     kmax = 20
