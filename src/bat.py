@@ -4,7 +4,7 @@ from scipy.stats import norm
 import pca
 
 class Bat:
-    def __init__(self, d, pop, numOfGenerations, a, r, q_min, q_max, lower_bound, upper_bound, function, use_pca=True, levy=True, seed=0, alpha=1, gamma=1):
+    def __init__(self, d, pop, numOfGenerations, a, r, q_min, q_max, lower_bound, upper_bound, function, use_pca=True, levy=False, seed=0, alpha=1, gamma=1):
         # Number of dimensions
         self.d = d
         # Population size
@@ -48,6 +48,9 @@ class Bat:
         # History (for plots)
         self.best_history = []
         self.min_val_history = []
+        self.loudness_history = []
+        self.pulse_rate_history = []
+        self.frequency_history = []
 
 
     def find_best_bat(self):
@@ -93,7 +96,7 @@ class Bat:
         """
         return mu + c / (2 * norm.ppf(1.0 - u)**2)
 
-    def levy_flight(self, X, i, la):
+    def levy_flight(self, X, i):
         for j in range(self.d):
             X[i][j] = np.clip(self.solutions[i][j] + self.my_levy(0.0) * (self.solutions[i][j] - self.best[j]),
                 self.lower_bound, self.upper_bound)
@@ -104,7 +107,7 @@ class Bat:
             self.update_frequency(i)
 
             if self.levy:
-                self.levy_flight(X, i, l)
+                self.levy_flight(X, i)
             else:
                 self.global_search(X, i)
 
@@ -140,6 +143,9 @@ class Bat:
     def keep_history(self):
         self.best_history.append(self.best)
         self.min_val_history.append(self.f_min)
+        self.loudness_history.append(np.mean(self.A))
+        self.pulse_rate_history.append(np.mean(self.R))
+        self.frequency_history.append(np.mean(self.Q))
 
 
     def run_bats(self):
@@ -152,12 +158,20 @@ class Bat:
             self.move_bats(X, t)
             self.keep_history()
 
+        history = {}
+        history.update({
+            "best" : self.best_history,
+            "min_val" : self.min_val_history,
+            "loudness" : self.loudness_history,
+            "pulserate" : self.pulse_rate_history,
+            "frequency" : self.frequency_history
+            })
+
         d = {}
         d.update({
             "best" : self.best,
-            "minima" : self.min_val_history,
-            "history" : self.best_history,
-            "final_fitness" : self.f_min
+            "final_fitness" : self.f_min,
+            "history" : history,
             })
 
         return d

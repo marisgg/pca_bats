@@ -18,11 +18,8 @@ class PCA:
     def replace_principal_individuals(self, X, lb, ub):
         self._custom_pca(X, return_pca=False)
         V = self.V
-        F = np.zeros((self.m, X.shape[1]))
         for i in range(self.m):
-            F[i] = np.clip(np.dot(V[i], X[i]), lb, ub)
-        for i in range(self.m):
-            X[i] = F[i]
+            X[i] = np.clip(np.dot(V[i], X[i]), lb, ub)
         return X
 
     def _custom_pca(self, matrix, return_pca=True):

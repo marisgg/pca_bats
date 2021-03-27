@@ -1,7 +1,11 @@
 import numpy as np
+import scipy
 
 def willem(x):
     return x/x/x/x
+
+def FRosenbrock(x):
+    return scipy.optimize.rosen(x)
 
 
 def rosen(x):
@@ -15,12 +19,18 @@ def stub(x):
     return value
 
 def FSphere(x):
-    """ Sphere function """
+    """ 
+    Sphere function 
+    range: [np.NINF, np.inf]
+    """
     return (x ** 2).sum()
 
 
 def FRastrigin(x):
-    """ Rastrigin's function """
+    """ 
+    Rastrigin's function 
+    [-5.12, 5.12]
+    """
     return np.sum(x ** 2 - 10.0 * np.cos(2.0 * np.pi * x) + 10)
 
 def FGrienwank(x):

@@ -4,41 +4,40 @@ from bat import Bat
 import functions
 import plot
 
-popsize = 100
-dimension = np.array([100, 500, 1000])
-run_times = 25
-maxFEs = 5000 * dimension
 
-def main():
-    generations = 2000
+def run(pca, function, lb, ub, generations):
     alpha_gamma = 0.95
     algorithm = Bat(
         # Dimension
-        40,
+        100,
         # Population
-        40,
-        # Generations       
+        100,
+        # Generations
         generations,
-        # Loudness  
-        0.5,
+        # Loudness
+        0.9,
         # Pulse rate
-        0.5,
+        0.9,
         # Min. Freq.
         0.0,
         # Max. Freq.
-        100.0,
+        5.0,
         # Lower bound
-        -5.12,
+        lb,
         # Upper bound
-        5.12,
-        functions.FRastrigin,
-        alpha=alpha_gamma,
-        gamma=alpha_gamma,
-        use_pca=True
+        ub,
+        function,
+        alpha=0.99,
+        gamma=0.9,
+        use_pca=pca,
+        levy=False
         )
     return_dict = algorithm.run_bats()
     print(f"Best: {return_dict['best']}, values: {return_dict['final_fitness']}")
-    plot.plot_history(return_dict['minima'], generations)
+    return return_dict
+
+def main():
+    pass
 
 if __name__ == "__main__":
     main()
