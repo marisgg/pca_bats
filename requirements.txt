@@ -1,3 +1,6 @@
 opfunu
 numpy
 sklearn
+scipy
+tqdm
+matplotlib
