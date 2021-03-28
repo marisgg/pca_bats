@@ -106,6 +106,11 @@ class Bat:
         """
         return mu + c / (2 * norm.ppf(1.0 - u)**2)
 
+    def levy_flight_fat_tail(self, X, i):
+        for j in range(self.d):
+            X[i][j] = np.clip(self.solutions[i][j] + self.my_levy(self.rng.uniform(0, 1)) * (self.solutions[i][j] - self.best[j]),
+                self.lower_bound, self.upper_bound)
+
     def levy_flight(self, X, i):
         for j in range(self.d):
             X[i][j] = np.clip(self.solutions[i][j] + self.levy_rejection() * (self.solutions[i][j] - self.best[j]),
@@ -117,7 +122,7 @@ class Bat:
             self.update_frequency(i)
 
             if self.levy:
-                self.levy_flight(X, i)
+                self.levy_flight_fat_tail(X, i)
             else:
                 self.global_search(X, i)
 
