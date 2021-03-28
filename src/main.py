@@ -30,7 +30,7 @@ def run(pca, function, lb, ub, generations):
         alpha=0.99,
         gamma=0.9,
         use_pca=pca,
-        levy=False
+        levy=True
         )
     return_dict = algorithm.run_bats()
     print(f"Best: {return_dict['best']}, values: {return_dict['final_fitness']}")

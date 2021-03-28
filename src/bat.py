@@ -86,6 +86,16 @@ class Bat:
             X[i][j] = np.clip(self.solutions[i][j] + self.V[i][j],
                 self.lower_bound, self.upper_bound)
 
+    def levy_rejection(self):
+        x = self.rng.uniform(0, 1)
+        y = self.rng.uniform(0, 1.5) # PDF maximum peak at x=1/3 --> y~1.45
+        fx = np.sqrt(1/(2*np.pi))*np.exp(-1/(2*x))/(x**1.5) # PDF
+        while (y < fx):
+            x = self.rng.uniform(0, 1)
+            y = self.rng.uniform(0, 1.5) # PDF maximum peak at x=1/3 --> y~1.45
+            fx = np.sqrt(1/(2*np.pi))*np.exp(-1/(2*x))/(x**1.5) # PDF
+        return x
+
 
     def my_levy(self, u, c = 1.0, mu = 0.0):
         """    
@@ -98,7 +108,7 @@ class Bat:
 
     def levy_flight(self, X, i):
         for j in range(self.d):
-            X[i][j] = np.clip(self.solutions[i][j] + self.my_levy(0.0) * (self.solutions[i][j] - self.best[j]),
+            X[i][j] = np.clip(self.solutions[i][j] + self.levy_rejection() * (self.solutions[i][j] - self.best[j]),
                 self.lower_bound, self.upper_bound)
 
     def move_bats(self, X, t):
